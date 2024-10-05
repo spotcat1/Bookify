@@ -16,7 +16,7 @@ namespace Bookify.Domain.Apartments
         {
             Name = name;
             Description = description;
-            Address = address;
+            Address = address; 
             Price = price;
             CleaningFee = cleaningFee;
             LastBookedOnUtc = lastBookedOnUtc;
