@@ -3,4 +3,5 @@
 namespace Bookify.Domain.Bookings.Events
 {
     public sealed record BookingReservedDomainEvent(Guid BookingGuid):IDomainEvent;
+
 }

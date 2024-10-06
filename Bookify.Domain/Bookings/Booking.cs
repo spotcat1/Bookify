@@ -74,6 +74,78 @@ namespace Bookify.Domain.Bookings
         }
 
 
+        public Result Confirm (DateTime utcNow)
+        {
+            if (Status != BookingStatus.Reserved)
+            {
+                return Result.Failure(BookingErrors.NotReserved);
+            }
+
+            Status = BookingStatus.Confirmed;
+            ConfirmedOnUtc = utcNow;
+
+
+            RaiseDomainEvents(new BookingConfirmedDomainEvent(GUID));
+
+            return Result.Success();
+        }
+
+
+        public Result Reject(DateTime utcNow)
+        {
+            if (Status != BookingStatus.Reserved)
+            {
+                return Result.Failure(BookingErrors.NotReserved);
+            }
+
+            Status = BookingStatus.Rejected;
+            RejectedOnUtc = utcNow;
+
+
+            RaiseDomainEvents(new BookingRejectedDomainEvent(GUID));
+
+            return Result.Success();
+        }
+
+        public Result Complete(DateTime utcNow)
+        {
+            if (Status != BookingStatus.Confirmed)
+            {
+                return Result.Failure(BookingErrors.NotConfirmed);
+            }
+
+            Status = BookingStatus.Completed;
+            CompletedOnUtc = utcNow;
+
+
+            RaiseDomainEvents(new BookingCompletedDomainEvent(GUID));
+
+            return Result.Success();
+        }
+
+
+        public Result Cancel(DateTime utcNow)
+        {
+            if (Status != BookingStatus.Confirmed)
+            {
+                return Result.Failure(BookingErrors.NotConfirmed);
+            }
+
+            var currentDate = DateOnly.FromDateTime(utcNow);
+
+            if (currentDate > Duration.Start)
+            {
+                return Result.Failure(BookingErrors.AlreadyStarted);
+            }
+
+            Status = BookingStatus.Cancelled;
+            CancelledOnUtc = utcNow;
+
+
+            RaiseDomainEvents(new BookingCancelledDomainEvent(GUID));
+
+            return Result.Success();
+        }
     }
 }
 
