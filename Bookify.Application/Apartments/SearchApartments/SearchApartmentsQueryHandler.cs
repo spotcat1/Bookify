@@ -78,7 +78,7 @@ namespace Bookify.Application.Apartments.SearchApartments
                 );
 
 
-            return apartments.Tolist();
+            return apartments.ToList();
         }
     }
 }
