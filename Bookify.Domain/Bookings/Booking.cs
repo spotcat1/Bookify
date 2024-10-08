@@ -45,7 +45,8 @@ namespace Bookify.Domain.Bookings
         public DateTime? CancelledOnUtc { get; private set; }
 
 
-        public static Booking Reserver(Apartment apartment,
+        public static Booking Reserver(
+            Apartment apartment,
             Guid userGuid,
             DateRange duration,
             DateTime utcNow,
