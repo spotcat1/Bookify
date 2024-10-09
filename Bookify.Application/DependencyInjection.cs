@@ -1,4 +1,5 @@
-﻿using Bookify.Domain.Bookings;
+﻿using Bookify.Application.Behaviours;
+using Bookify.Domain.Bookings;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Bookify.Application
@@ -12,9 +13,11 @@ namespace Bookify.Application
             {
                 configuration.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
 
+                configuration.AddOpenBehavior(typeof(LoggingBehaviour<,>));
+
             });
 
-            services.AddTransient<PricingServices>();
+            services.AddTransient<PricingServices>(); 
 
             return services;
         }

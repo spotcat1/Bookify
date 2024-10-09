@@ -53,7 +53,7 @@ namespace Bookify.Application.ReserveBookings
 
             var duration = DateRange.Create(request.StartDate, request.EndDate);
 
-            if (await _bokkingRepository.IsOverLappingAsync(duration, apartment, cancellationToken))
+            if (await _bokkingRepository.IsOverlappingAsync(apartment,duration, cancellationToken))
             {
                 return Result.Failure<Guid>(BookingErrors.Overlap);
             }
