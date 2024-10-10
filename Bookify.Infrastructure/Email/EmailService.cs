@@ -1,6 +1,6 @@
 ﻿using Bookify.Application.Abstractions.Emails;
 
-s;
+
 
 namespace Bookify.Infrastructure.Email
 {
