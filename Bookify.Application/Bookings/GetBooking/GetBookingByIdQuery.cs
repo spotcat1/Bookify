@@ -2,5 +2,5 @@
 
 namespace Bookify.Application.Bookings.GetBooking
 {
-    public sealed record GetBookingByIdQuery(int BookingId) :IQuery<BookingResponse>;
+    public sealed record GetBookingByIdQuery(Guid BookingGuid) :IQuery<BookingResponse>;
 }

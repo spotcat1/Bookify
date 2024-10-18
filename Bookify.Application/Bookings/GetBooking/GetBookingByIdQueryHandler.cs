@@ -46,7 +46,7 @@ namespace Bookify.Application.Bookings.GetBooking
 
             var booking = await connection.QueryFirstOrDefaultAsync<BookingResponse>(sql, new
             {
-                request.BookingId
+                request.BookingGuid
             });
 
 

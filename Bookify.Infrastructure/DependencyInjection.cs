@@ -24,7 +24,7 @@ namespace Bookify.Infrastructure
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
 
-            var connectionString = configuration.GetConnectionString("DB") ??
+            var connectionString = configuration.GetConnectionString("DataBase") ??
             throw new NotImplementedException();
 
             services.AddDbContext<ApplicationDbContext>(options =>

@@ -31,6 +31,8 @@ namespace Bookify.Infrastructure.Configurations
                 priceBuilder.Property(money => money.Currency)
                 .HasConversion(c => c.Code, c => Currency.FromCode(c));
             });
+
+            builder.Property<uint>("Version").IsRowVersion();
         }
     }
 }
