@@ -13,6 +13,7 @@ using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection.Emit;
 
 namespace Bookify.Infrastructure
 {
@@ -21,16 +22,25 @@ namespace Bookify.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
 
+
+
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
 
-            var connectionString = configuration.GetConnectionString("DataBase") ??
-            throw new NotImplementedException();
+            var connectionString = configuration["ConnectionStrings:DataBase"] ??
+                                   throw new NotImplementedException("Connection string not found.");
+
 
             services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                options.UseSqlServer(connectionString).UseSnakeCaseNamingConvention();
-            });
+                 options.UseSqlServer(connectionString, sqlOptions =>
+                 {
+                     sqlOptions.EnableRetryOnFailure(
+                         maxRetryCount: 5,
+                         maxRetryDelay: TimeSpan.FromSeconds(10),
+                         errorNumbersToAdd: null);
+                 })
+                 .UseSnakeCaseNamingConvention() // Apply snake_case naming convention
+             );
 
             services.AddScoped<IUserRepository, UserRepository>();
 

@@ -17,7 +17,10 @@ namespace Bookify.Domain.Review
 
         }
 
-
+        private Review()
+        {
+            
+        }
         public Guid ApartmentGuid { get; private set; }
 
         public Guid BookingGuid { get; private set; }

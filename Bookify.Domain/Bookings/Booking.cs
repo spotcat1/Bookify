@@ -30,6 +30,10 @@ namespace Bookify.Domain.Bookings
             
         }
 
+        private Booking()
+        {
+            
+        }
         public Guid ApartmentGuid { get; private set; }
         public Guid UserGuid { get; private set; }
         public DateRange Duration { get; private set; }

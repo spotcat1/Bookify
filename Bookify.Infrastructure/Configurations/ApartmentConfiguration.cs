@@ -24,12 +24,19 @@ namespace Bookify.Infrastructure.Configurations
             {
                 priceBuilder.Property(money => money.Currency)
                 .HasConversion(c => c.Code, c => Currency.FromCode(c));
+
+                priceBuilder.Property(money => money.Amount)
+                .HasPrecision(18, 2);
             });
 
             builder.OwnsOne(a => a.CleaningFee, priceBuilder =>
             {
                 priceBuilder.Property(money => money.Currency)
                 .HasConversion(c => c.Code, c => Currency.FromCode(c));
+
+
+                priceBuilder.Property(money => money.Amount)
+                .HasPrecision(18, 2);
             });
 
             builder.Property<uint>("Version").IsRowVersion();

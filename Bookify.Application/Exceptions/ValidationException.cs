@@ -4,8 +4,8 @@
     {
         public ValidationException(IEnumerable<ValidationError> errors)
         {
-            Error = errors;
+            Errors = errors;
         }
-        public IEnumerable<ValidationError> Error { get; }
+        public IEnumerable<ValidationError> Errors { get; }
     }
 }

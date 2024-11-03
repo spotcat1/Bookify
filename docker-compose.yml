@@ -1,3 +1,33 @@
+# version: '3.4'
+
+# services:
+#   bookify.api:
+#     image: ${DOCKER_REGISTRY-}bookifyapi
+#     container_name: Bookify.Api
+#     build:
+#       context: .
+#       dockerfile: Bookify.Api/Dockerfile
+#     ports:
+#       - "5000:5000"
+#     depends_on:
+#     - bookify-db
+
+#   bookify-db:
+#     image: mcr.microsoft.com/mssql/server:2022-latest
+#     container_name: Bookify.Db
+#     environment:
+#     - ACCEPT_EULA=Y
+#     - MSSQL_SA_PASSWORD=123456789
+#     - MSSQL_DATABASE=Bookify
+#     ports:
+#       - "1433:1433"
+#     volumes:
+#       - sqlserver-data:/var/opt/mssql
+
+# volumes:
+#   sqlserver-data:
+
+
 version: '3.4'
 
 services:
@@ -8,17 +38,19 @@ services:
       context: .
       dockerfile: Bookify.Api/Dockerfile
     ports:
-      - "5000:5000"
+      - "5000:8081"
     depends_on:
-    - bookify-db
+      - bookify-db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development  # Specify development environment
 
   bookify-db:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: Bookify.Db
     environment:
-    - ACCEPT_EULA=Y
-    - MSSQL_SA_PASSWORD=10912_34As8
-    - MSSQL_DATABASE=Bookify
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=as_1380MahaN_sd  # Change this to a secure password
+      - MSSQL_DATABASE=Bookify
     ports:
       - "1433:1433"
     volumes:
@@ -26,5 +58,4 @@ services:
 
 volumes:
   sqlserver-data:
-
 

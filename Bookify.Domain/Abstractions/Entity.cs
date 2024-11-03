@@ -7,6 +7,11 @@
         {
             GUID = Guid;
         }
+
+        protected Entity()
+        {
+            
+        }
         public Guid GUID { get; init; }
 
         public IReadOnlyList<IDomainEvent> GetDomainEvents()

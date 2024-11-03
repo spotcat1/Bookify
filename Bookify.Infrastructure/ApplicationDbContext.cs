@@ -16,6 +16,16 @@ namespace Bookify.Infrastructure
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
+
+            //foreach (var property in modelBuilder.Model.GetEntityTypes()
+            //  .SelectMany(t => t.GetProperties())
+            //  .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
+            //{
+            //    property.SetPrecision(18); // Total number of digits
+            //    property.SetScale(2);      // Number of decimal places
+            //}
+
+
             base.OnModelCreating(modelBuilder);
         }
 

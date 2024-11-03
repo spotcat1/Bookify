@@ -15,14 +15,22 @@
 
 
 
+# version: '3.4'
+
+# services:
+#   bookify.api:
+#     environment:
+#       - ASPNETCORE_ENVIRONMENT=Development
+#       - ASPNETCORE_URLS=http://+:5000
+#     ports:
+#       - "5000:5000"
+#     volumes:
+#       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+
+
 version: '3.4'
 
 services:
   bookify.api:
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:5000
-    ports:
-      - "5000:5000"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ConnectionStrings__DataBase=Data Source=bookify-db;Initial Catalog=Bookify;User Id=sa;Password=as_1380MahaN_sd;TrustServerCertificate=True;

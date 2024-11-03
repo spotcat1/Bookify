@@ -18,24 +18,36 @@ namespace Bookify.Infrastructure.Configurations
             {
                 priceBuilder.Property(money => money.Currency)
                     .HasConversion(currency => currency.Code, code => Currency.FromCode(code));
+
+                priceBuilder.Property(money => money.Amount)
+                    .HasPrecision(18, 2);
             });
 
             builder.OwnsOne(booking => booking.CleaningFee, priceBuilder =>
             {
                 priceBuilder.Property(money => money.Currency)
                     .HasConversion(currency => currency.Code, code => Currency.FromCode(code));
+
+                priceBuilder.Property(money => money.Amount)
+                   .HasPrecision(18, 2);
             });
 
             builder.OwnsOne(booking => booking.AmenitiesUpCharge, priceBuilder =>
             {
                 priceBuilder.Property(money => money.Currency)
                     .HasConversion(currency => currency.Code, code => Currency.FromCode(code));
+
+                priceBuilder.Property(money => money.Amount)
+                   .HasPrecision(18, 2);
             });
 
             builder.OwnsOne(booking => booking.TotalPrice, priceBuilder =>
             {
                 priceBuilder.Property(money => money.Currency)
                     .HasConversion(currency => currency.Code, code => Currency.FromCode(code));
+
+                priceBuilder.Property(money => money.Amount)
+                   .HasPrecision(18, 2);
             });
 
             builder.OwnsOne(booking => booking.Duration);

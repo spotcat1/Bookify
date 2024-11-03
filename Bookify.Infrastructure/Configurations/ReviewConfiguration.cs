@@ -30,15 +30,18 @@ namespace Bookify.Infrastructure.Configurations
 
             builder.HasOne<Apartment>()
                 .WithMany()
-                .HasForeignKey(review => review.ApartmentGuid);
+                .HasForeignKey(review => review.ApartmentGuid)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne<Booking>()
                 .WithMany()
-                .HasForeignKey(review => review.BookingGuid);
+                .HasForeignKey(review => review.BookingGuid)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne<User>()
                 .WithMany()
-                .HasForeignKey(review => review.UserGuid);
+                .HasForeignKey(review => review.UserGuid)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
