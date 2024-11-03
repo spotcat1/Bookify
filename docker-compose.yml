@@ -3,46 +3,51 @@
 # services:
 #   bookify.api:
 #     image: ${DOCKER_REGISTRY-}bookifyapi
-#     container_name: Bookify.Api
 #     build:
 #       context: .
 #       dockerfile: Bookify.Api/Dockerfile
-#     ports:
-#       - "5000:5000"
+#     environment:
+#       - ASPNETCORE_ENVIRONMENT=Development
+#       - ASPNETCORE_HTTP_PORTS=8080
 #     depends_on:
-#     - bookify-db
+#       - bookify-db
+#     ports:
+#       - "8083:8080"
+#     volumes:
+#       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
 
 #   bookify-db:
 #     image: mcr.microsoft.com/mssql/server:2022-latest
 #     container_name: Bookify.Db
 #     environment:
-#     - ACCEPT_EULA=Y
-#     - MSSQL_SA_PASSWORD=123456789
-#     - MSSQL_DATABASE=Bookify
+#       - ACCEPT_EULA=Y
+#       - MSSQL_SA_PASSWORD=as_1380MahaN_sd  # Change this to a secure password
+#       - MSSQL_DATABASE=Bookify
+#       - ConnectionStrings__DataBase=Data Source=bookify-db;Initial Catalog=Bookify;User Id=sa;Password=as_1380MahaN_sd;TrustServerCertificate=True;
 #     ports:
-#       - "1433:1433"
+#       - "1434:1433"
 #     volumes:
 #       - sqlserver-data:/var/opt/mssql
 
 # volumes:
 #   sqlserver-data:
-
-
 version: '3.4'
 
 services:
   bookify.api:
     image: ${DOCKER_REGISTRY-}bookifyapi
-    container_name: Bookify.Api
     build:
       context: .
       dockerfile: Bookify.Api/Dockerfile
-    ports:
-      - "5000:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:8080  # Listen on port 8080 in the container
     depends_on:
       - bookify-db
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development  # Specify development environment
+    ports:
+      - "8083:8080"  # Map localhost:8083 to container's port 8080
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
 
   bookify-db:
     image: mcr.microsoft.com/mssql/server:2022-latest
@@ -51,11 +56,11 @@ services:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=as_1380MahaN_sd  # Change this to a secure password
       - MSSQL_DATABASE=Bookify
+      - ConnectionStrings__DataBase=Data Source=bookify-db;Initial Catalog=Bookify;User Id=sa;Password=as_1380MahaN_sd;TrustServerCertificate=True;
     ports:
-      - "1433:1433"
+      - "1434:1433"  # Map localhost:1434 to container's port 1433
     volumes:
       - sqlserver-data:/var/opt/mssql
 
 volumes:
   sqlserver-data:
-
